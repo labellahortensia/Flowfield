@@ -1,10 +1,12 @@
 let nb = 150;
 let dMin = 50;
+let noiseScale = 0.005;
 let p = Array(nb);
 
 
 function setup() {
   createCanvas(500, 500);
+  angleMode(DEGREES);
   for (let i=0; i<nb; i=i+1){
   p[i] = new Particle(random(0,width),random(0,height)); //creates an object + original position
   }
@@ -17,18 +19,6 @@ function draw() {
   for (let i=0; i<nb; i=i+1)
     {
       p[i].draw();
-    }
-
-    stroke(255);
-    for (let i=0; i<nb; i=i+1){
-      let pi = p[i];
-      for (let j=i+1; j<nb; j=j+1){
-          let pj = p[j];
-          let d = dist(pi.x,pi.y,pj.x,pj.y);
-          if (d<dMin){
-            line(pi.x,pi.y,pj.x,pj.y);
-          }
-        }
     }
   
 }
@@ -46,6 +36,10 @@ class Particle //serves a model to create objects
       
       draw()
       {
+        let n = noise(noiseScale*this.x,noiseScale*this.y); 
+        this.vx = cos(n*360);//velocity in x direction
+        this.vy = sin(n*360);//velocity in y direction
+
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
 

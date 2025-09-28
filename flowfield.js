@@ -16,7 +16,7 @@ function setup() {
 function draw() {
   //noStroke();
   //fill("#edafb8");
-  stroke(255);
+  stroke(255, map(frameCount,1,400,255,0));//fade out effect
   for (let i=0; i<nb; i=i+1)
     {
       p[i].draw();

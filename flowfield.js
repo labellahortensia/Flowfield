@@ -7,15 +7,16 @@ let p = Array(nb);
 function setup() {
   createCanvas(500, 500);
   angleMode(DEGREES);
+  background(0);
   for (let i=0; i<nb; i=i+1){
   p[i] = new Particle(random(0,width),random(0,height)); //creates an object + original position
   }
 }
 
 function draw() {
-  background(0);
-  noStroke();
-  fill("#edafb8");
+  //noStroke();
+  //fill("#edafb8");
+  stroke(255);
   for (let i=0; i<nb; i=i+1)
     {
       p[i].draw();
@@ -48,6 +49,7 @@ class Particle //serves a model to create objects
           this.y = random(0,height);
         } 
 
-        circle(this.x,this.y,5);
+        //circle(this.x,this.y,5);
+        PointerEvent(this.x,this.y);
       }
     }

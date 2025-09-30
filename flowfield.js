@@ -1,6 +1,9 @@
 let nb = 150;
 let dMin = 50;
 let noiseScale = 0.005;
+let noiseAngle = 300;
+let noiseSpeed = 3; 
+let ageMax = 500;
 let p = Array(nb);
 
 
@@ -16,7 +19,7 @@ function setup() {
 function draw() {
   //noStroke();
   //fill("#edafb8");
-  stroke(255, map(frameCount,1,400,255,0));//fade out effect
+  stroke(255, map(frameCount,1,ageMax,255,0));//fade out effect
   for (let i=0; i<nb; i=i+1)
     {
       p[i].draw();
@@ -37,9 +40,9 @@ class Particle //serves a model to create objects
       
       draw()
       {
-        let n = noise(noiseScale*this.x,noiseScale*this.y); 
-        this.vx = cos(n*360);//velocity in x direction
-        this.vy = sin(n*360);//velocity in y direction
+        let n = noiseAngle*noise(noiseScale*this.x,noiseScale*this.y); 
+        this.vx = noiseSpeed*cos(n);//velocity in x direction
+        this.vy = noiseSpeed*sin(n);//velocity in y direction
 
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;

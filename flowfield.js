@@ -1,21 +1,25 @@
 let nb = 150;
 let dMin = 50;
 let noiseScale = 0.005;
+let noiseAngle = 300;
+let noiseSpeed = 3; 
+let ageMax = 500;
 let p = Array(nb);
 
 
 function setup() {
   createCanvas(500, 500);
   angleMode(DEGREES);
+  background(0);
   for (let i=0; i<nb; i=i+1){
   p[i] = new Particle(random(0,width),random(0,height)); //creates an object + original position
   }
 }
 
 function draw() {
-  background(0);
-  noStroke();
-  fill("#edafb8");
+  //noStroke();
+  //fill("#edafb8");
+  stroke(255, map(frameCount,1,ageMax,255,0));//fade out effect
   for (let i=0; i<nb; i=i+1)
     {
       p[i].draw();
@@ -36,9 +40,9 @@ class Particle //serves a model to create objects
       
       draw()
       {
-        let n = noise(noiseScale*this.x,noiseScale*this.y); 
-        this.vx = cos(n*360);//velocity in x direction
-        this.vy = sin(n*360);//velocity in y direction
+        let n = noiseAngle*noise(noiseScale*this.x,noiseScale*this.y); 
+        this.vx = noiseSpeed*cos(n);//velocity in x direction
+        this.vy = noiseSpeed*sin(n);//velocity in y direction
 
         this.x = this.x + this.vx;
         this.y = this.y + this.vy;
@@ -48,6 +52,7 @@ class Particle //serves a model to create objects
           this.y = random(0,height);
         } 
 
-        circle(this.x,this.y,5);
+        //circle(this.x,this.y,5);
+        PointerEvent(this.x,this.y);
       }
     }
